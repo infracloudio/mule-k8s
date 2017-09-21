@@ -1,19 +1,23 @@
 # mule-jenkins-docker
-Test project for Mule - Jenkins -Docker Pipeline
+Mule project built as a container and deployed on Kubernetes via a Jenkins pipeline
 
+## Structure
 
-MuleRuntimeDockerfile folder contains the Dockerfile that has the base mule esb community edition 3.8.1.
-This docker image is published in the public registry docker hub under iipochi123 username
+### app
+Contains all the code needed for mule app. 
 
-DockerfileForApp folder contains the Dockerfile that builds on top of the mule esb image deploying our application.
+### jenkins
+The deployment of Jenkins to Kubernetes and pipeline definitions
 
-Dockerfile in the main folder creates a docker image for jenkins [ also includes docker , kubectl , maven]
+### mule_runtime
+This directory is for building the base mule runtime image which can be used for other mule apps. Instead of replicating same code across multiple Dockerfiles, this will act as base for other images.
 
-Jenkins runs as a container inside a minikube pod , using Jenkinsfile which build the maven project ,  {{ builds the image and deploys to minikube }}
+## Build and run
+## Locally
+For building and running the App locally using Docker you can simply build from the root directory. You will need Docker 17.06 or higher as multi-stage build is used
 
+```
+docker build -t mule-app .
+```
 
-{{ ... }} -> Hitting a snag. I am not able to start the docker service inside the jenkins container  (is it because of something called running docker in docker ?)
-
-
-
-
+## Kubernetes

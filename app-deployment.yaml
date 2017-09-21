@@ -13,7 +13,7 @@ spec:
         app: mule-app
     spec:
       containers:
-      - image: iipochi123/mule-jenkins-kubernetes-demo
+      - image: iipochi123/mule-esb
         name: mule-app
         ports:
         - containerPort: 8081

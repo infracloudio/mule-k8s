@@ -1,25 +1,11 @@
-FROM jenkins/jenkins:lts
+FROM maven:3-jdk-8 as build_app
+RUN mkdir -p /tmp/app
+COPY app /tmp/app/
+RUN ls -l /tmp/app
+WORKDIR /tmp/app
+RUN mvn clean package -DskipTests=true
 
-USER root
-
-#install Docker
-RUN apt-get -y update && \
-    apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common
-
-RUN curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -
-
-RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable"
-
-RUN apt-get -y update && \
-    apt-get install -y docker-ce
-
-RUN usermod -aG docker jenkins
-
-# install kubectl
-
-RUN apt-get install -y maven && \
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
-    chmod +x kubectl && \
-    mv kubectl /usr/local/bin
-
-USER jenkins
+FROM iipochi123/mule-esb
+ENV MULE_HOME /opt/mule
+COPY --from=build_app /tmp/app/target/twitter-mule-1.0.0-SNAPSHOT.zip $MULE_HOME/apps/
+EXPOSE 8081:8081
