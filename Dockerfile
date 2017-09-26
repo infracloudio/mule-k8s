@@ -1,7 +1,6 @@
 FROM maven:3-jdk-8 as build_app
 RUN mkdir -p /tmp/app
 COPY app /tmp/app/
-RUN ls -l /tmp/app
 WORKDIR /tmp/app
 RUN mvn clean package -DskipTests=true
 

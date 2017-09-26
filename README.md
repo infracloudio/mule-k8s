@@ -14,10 +14,19 @@ This directory is for building the base mule runtime image which can be used for
 
 ## Build and run
 ## Locally
-For building and running the App locally using Docker you can simply build from the root directory. You will need Docker 17.06 or higher as multi-stage build is used
+### Build
+For building and running the backend App locally using Docker you can simply build from the root directory. You will need Docker 17.06 or higher as multi-stage build is used
 
 ```
 docker build -t mule-app .
 ```
+For front end, go to front_end directory and build:
+
+```
+docker build -t mule-ui
+```
+### Run
 
 ## Kubernetes
+### Build
+### Run
