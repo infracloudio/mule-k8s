@@ -23,7 +23,7 @@
         <input class="input" type="text" placeholder="Search for Etsy listings" v-model="searchText">
       </p>
       <p class="control">
-        <a class="button is-primary" v-on:click="search">
+        <a class="button is-primary" v-on:click="search" v-on:keydown.enter="search">
           Search
         </a>
       </p>
@@ -31,8 +31,14 @@
 
     <div class="columns">
       <div class="column">
-        <p v-if="noResults == 'true'"> No listings found </p>
-        <card v-for="n in count" :item="listings.results[n]"></card>
+        <card v-for="n in count" :item="listings.results[n]" v-if= "n % 2 == 0"></card>
+        <section>
+          
+        </section>
+      </div>
+      <p v-if="noResults == 'true'"> No listings found </p>
+      <div class="column">
+        <card v-for="n in count" :item="listings.results[n]" v-if= "n % 2 != 0"></card>
       </div>
     </div>
   </div>
@@ -61,6 +67,7 @@ export default {
     search() {
 
       this.noResults = "";
+      this.count = 0;
       var config = {
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -75,7 +82,7 @@ export default {
         this.count = this.listings.count
 
         if (this.count > 25) {
-            this.count = 25
+            this.count = 10
         }
         if(this.count == 0 ) {
           this.noResults = "true"

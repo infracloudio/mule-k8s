@@ -4,8 +4,8 @@
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:cors="http://www.mulesoft.org/schema/mule/cors"
-	xsi:schemaLocation="
-http://www.mulesoft.org/schema/mule/cors http://www.mulesoft.org/schema/mule/cors/current/mule-cors.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/cors http://www.mulesoft.org/schema/mule/cors/current/mule-cors.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
@@ -27,7 +27,6 @@ http://www.mulesoft.org/schema/mule/twitter http://www.mulesoft.org/schema/mule/
 </cors:config>
 
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
-    <twitter:config name="Twitter__Configuration" accessKey="897355239396962304-3UVvKt4wWgmcs6HPJCMoQO046fQ9Qhb" accessSecret="CRhYugiys8sPTYv1Obp2UYPvhSGBGVhUZbPMfRYkDaEAF" consumerKey="TNOwHtScj1LjIZY1euCG3ZvVF" consumerSecret="N6I2W0m692E7LvqyDJJsjLi48kK7OIkwqOs4lb6E5Opbyu6lrq" doc:name="Twitter: Configuration"/>
     <http:request-config name="HTTP_Request_Configuration" host="openapi.etsy.com" port="80" doc:name="HTTP Request Configuration"/>
     <flow name="twitter-muleFlow">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/search" doc:name="HTTP"/>
@@ -40,5 +39,15 @@ publicResource="true" acceptsCredentials="false" doc:name="CORS Validate" />
             </http:request-builder>
         </http:request>
         <echo-component doc:name="Echo"/>
+    </flow>
+    <flow name="getImagesFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/images" doc:name="Get Images HTTP"/>
+        <cors:validate config-ref="Cors_Configuration" publicResource="true" acceptsCredentials="false" doc:name="CORS Validate"></cors:validate>
+        <http:request config-ref="HTTP_Request_Configuration" path="/v2/listings/#[message.inboundProperties['http.query.params'].q]/images" method="GET" doc:name="Images">
+            <http:request-builder>
+                <http:query-param paramName="api_key" value="vvnwyoc52x0ph1vppsms23x3"/>
+            </http:request-builder>
+        </http:request>
+        <echo-component doc:name="Copy_of_Echo"/>
     </flow>
 </mule>
