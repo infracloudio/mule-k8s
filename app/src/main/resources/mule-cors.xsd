@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/cors"
+attributeFormDefault="unqualified" elementFormDefault="qualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
+	<xs:import namespace="http://www.springframework.org/schema/beans"
+schemaLocation="http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"></xs:import>
+	<xs:import namespace="http://www.mulesoft.org/schema/mule/core"
+schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
+	<xs:element
+		xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+substitutionGroup="mule:abstract-extension" name="config">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="mule:abstractExtensionType">
+					<xs:annotation>
+						<xs:documentation>Cors Module</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="1" name="origins">
+							<xs:annotation>
+								<xs:documentation></xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element minOccurs="0" maxOccurs="unbounded"
+name="origin">
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension
+													xmlns="http://www.mulesoft.org/schema/mule/cors"
+base="OriginObjectType">
+													<xs:attribute type="xs:string" use="optional"
+name="value-ref"></xs:attribute>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute type="xs:string" use="optional" name="ref">
+									<xs:annotation>
+										<xs:documentation>The reference object for this parameter</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute type="xs:string" use="optional" name="name">
+						<xs:annotation>
+							<xs:documentation>Give a name to this configuration so it can be
+later referenced by config-ref.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute type="xs:string" use="optional" name="storePrefix">
+						<xs:annotation>
+							<xs:documentation>Prefix used to differentiate the object store
+used as the backend of the configured origins.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute type="xs:string" use="optional" name="originsStore-ref">
+						<xs:annotation>
+							<xs:documentation>The object store used for storing the origins.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="OriginObjectType">
+		<xs:sequence>
+			<xs:element minOccurs="0" maxOccurs="1" name="methods">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="method">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute type="xs:string" use="optional"
+name="value-ref"></xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute type="xs:string" use="optional" name="ref">
+						<xs:annotation>
+							<xs:documentation>The reference object for this parameter</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" maxOccurs="1" name="headers">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="header">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute type="xs:string" use="optional"
+name="value-ref"></xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute type="xs:string" use="optional" name="ref">
+						<xs:annotation>
+							<xs:documentation>The reference object for this parameter</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" maxOccurs="1" name="expose-headers">
+				<xs:annotation>
+					<xs:documentation></xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="expose-header">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute type="xs:string" use="optional"
+name="value-ref"></xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute type="xs:string" use="optional" name="ref">
+						<xs:annotation>
+							<xs:documentation>The reference object for this parameter</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" use="optional" name="url">
+			<xs:annotation>
+				<xs:documentation></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute
+			xmlns="http://www.mulesoft.org/schema/mule/cors"
+type="longType" use="optional" name="accessControlMaxAge">
+			<xs:annotation>
+				<xs:documentation></xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute type="xs:string" use="optional" name="ref">
+			<xs:annotation>
+				<xs:documentation>The reference object for this parameter</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element
+		xmlns="http://www.mulesoft.org/schema/mule/cors"
+		xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="ValidateType"
+substitutionGroup="mule:abstract-intercepting-message-processor" name="validate">
+		<xs:annotation>
+			<xs:documentation>Perform CORS validation. This operation will add
+the necessary CORS headers to the response. If the request method is
+OPTIONS it will not perform further processing of the message. If
+this request is not a CORS request, then the processing will
+continue without altering the message.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ValidateType">
+		<xs:complexContent>
+			<xs:extension
+				xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:abstractInterceptingMessageProcessorType">
+				<xs:attribute type="xs:string" use="optional" name="config-ref">
+					<xs:annotation>
+						<xs:documentation>Specify which configuration to use for this
+invocation.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute
+					xmlns="http://www.mulesoft.org/schema/mule/cors"
+type="booleanType" use="optional" default="false" name="publicResource">
+					<xs:annotation>
+						<xs:documentation>specifies if this resource should be publicly
+available regardless the origin.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute
+					xmlns="http://www.mulesoft.org/schema/mule/cors"
+type="booleanType" use="optional" default="false" name="acceptsCredentials">
+					<xs:annotation>
+						<xs:documentation>specifies whether the resource accepts
+credentials or not.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="integerType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:integer"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="decimalType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="floatType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:float"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="doubleType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:double"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="dateTimeType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:dateTime"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="longType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:long"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="byteType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:byte"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="booleanType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:boolean"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="anyUriType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:anyURI"></xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="charType">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"></xs:minLength>
+					<xs:maxLength value="1"></xs:maxLength>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction
+					xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+base="mule:propertyPlaceholderType">
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+</xs:schema>

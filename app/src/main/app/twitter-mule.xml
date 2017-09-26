@@ -3,16 +3,42 @@
 <mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:twitter="http://www.mulesoft.org/schema/mule/twitter" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+	xmlns:cors="http://www.mulesoft.org/schema/mule/cors"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/cors http://www.mulesoft.org/schema/mule/cors/current/mule-cors.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/twitter http://www.mulesoft.org/schema/mule/twitter/current/mule-twitter.xsd">
+  
+   <cors:config name="Cors_Configuration" doc:name="Cors Configuration">
+	<cors:origins>
+		<cors:origin url="*" accessControlMaxAge="30">
+			<cors:methods>
+				<cors:method>GET</cors:method>
+				<cors:method>POST</cors:method>
+				<cors:method>OPTIONS</cors:method>
+			</cors:methods>
+			<cors:headers>
+				<cors:header>X-Allow-Origin</cors:header>
+			</cors:headers>
+		</cors:origin>
+	</cors:origins>
+</cors:config>
+
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
     <twitter:config name="Twitter__Configuration" accessKey="897355239396962304-3UVvKt4wWgmcs6HPJCMoQO046fQ9Qhb" accessSecret="CRhYugiys8sPTYv1Obp2UYPvhSGBGVhUZbPMfRYkDaEAF" consumerKey="TNOwHtScj1LjIZY1euCG3ZvVF" consumerSecret="N6I2W0m692E7LvqyDJJsjLi48kK7OIkwqOs4lb6E5Opbyu6lrq" doc:name="Twitter: Configuration"/>
+    <http:request-config name="HTTP_Request_Configuration" host="openapi.etsy.com" port="80" doc:name="HTTP Request Configuration"/>
     <flow name="twitter-muleFlow">
-        <http:listener config-ref="HTTP_Listener_Configuration" path="/viewtweets" doc:name="HTTP"/>
-        <twitter:search config-ref="Twitter__Configuration" query="#[message.inboundProperties['http.query.params'].q]" sinceId="1" doc:name="Twitter"/>
-        <json:object-to-json-transformer doc:name="Object to JSON"/>
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/search" doc:name="HTTP"/>
+       <cors:validate config-ref="Cors_Configuration"
+publicResource="true" acceptsCredentials="false" doc:name="CORS Validate" />
+        <http:request config-ref="HTTP_Request_Configuration" path="/v2/listings/active" method="GET" doc:name="HTTP">
+            <http:request-builder>
+                <http:query-param paramName="api_key" value="vvnwyoc52x0ph1vppsms23x3"/>
+                <http:query-param paramName="keywords" value="#[message.inboundProperties['http.query.params'].q]"/>
+            </http:request-builder>
+        </http:request>
+        <echo-component doc:name="Echo"/>
     </flow>
 </mule>
