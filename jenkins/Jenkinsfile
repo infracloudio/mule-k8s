@@ -2,20 +2,15 @@ node {
     
     checkout scm
 
-    imageName = "mule-jenkins-kubernetes-demo"
+    imageName = "mule-app"
 
-		stage('Build') {
-                sh "mvn clean package -DskipTests=true"
-		}
-        stage('Build and Push') {
+        stage('Backend Build') {
+                docker build -t vishalbiyani/mule-app .
+        }
+        stage('Backend Push') {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                     def customImage = docker.build("${imageName}", "-f Dockerfile .")
                     customImage.push()
                 }
-		}
-        stage('Deploy') {
-
-                sh "kubectl create -f app-deployment.yaml"
-                sh "kubectl create -f app-service.yaml"	
-		}
+        }
 }
