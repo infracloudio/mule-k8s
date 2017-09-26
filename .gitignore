@@ -46,3 +46,17 @@ local.properties
 flows/
 target/
 src/main/api/.repository/ 
+
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
