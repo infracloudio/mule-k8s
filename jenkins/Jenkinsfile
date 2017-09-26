@@ -5,7 +5,7 @@ node {
     imageName = "mule-app"
 
         stage('Backend Build') {
-                sh 'docker build -t vishalbiyani/mule-app .'
+                docker build -t vishalbiyani/mule-app .
         }
         stage('Backend Push') {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
