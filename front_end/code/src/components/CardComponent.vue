@@ -45,7 +45,7 @@ import axios from 'axios';
         }
       };
 
-      axios.get('http://mule-app.default.svc.cluster.local:8081/images?q='+this.listing.listing_id , config)
+      axios.get('http://localhost:8081/images?q='+this.listing.listing_id , config)
       .then(response => {
         if(response.data.count > 0) {
           this.imageurl = response.data.results[1].url_fullxfull

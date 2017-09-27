@@ -75,7 +75,7 @@ export default {
           'Content-Type' : 'application/json'
         }
       };
-      axios.get('http://mule-app.default.svc.cluster.local:8081/search?q='+this.searchText , config)
+      axios.get('http://localhost:8081/search?q='+this.searchText , config)
       .then(response => {
         this.listings = response.data
 
