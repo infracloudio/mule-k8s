@@ -23,6 +23,7 @@ tmp/**/*
 local.properties
 .settings/
 .loadpath
+studio_id.xml
 # Recommended for Maven based projects 
 .project
 .classpath
