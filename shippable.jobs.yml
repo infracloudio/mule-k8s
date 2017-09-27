@@ -1,0 +1,18 @@
+jobs:
+  - name: deploy-backend-manifest
+    type: manifest
+    steps:
+      - IN: mule-backend-img
+      - TASK: managed
+    flags: 
+      - mule-kubernetes
+    
+  - name: deploy-backend-to-k8s
+    type: deploy
+    steps:
+      - IN: deploy-backend-manifest
+      - IN: kubernetes-deploy-cluster
+      - TASK: managed
+        deployMethod: upgrade
+    flags:
+      - mule-kubernetes

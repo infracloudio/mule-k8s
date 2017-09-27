@@ -1,0 +1,23 @@
+language: java
+
+branches:
+  only:
+    - master
+
+integrations:
+  hub:
+    - integrationName: DockerHubIntegration
+      type: docker
+
+build:
+  ci:
+    - sudo apt-get update
+    - sudo apt-get install -y maven
+    - pushd app
+    - mvn clean package
+    - popd
+    - docker build -t vishalbiyani/mule-app .
+    - docker build -t vishalbiyani/mule-ui front_end
+  post_ci:
+    - docker push vishalbiyani/mule-app
+    - docker push vishalbiyani/mule-ui

@@ -1,0 +1,28 @@
+resources:
+  - name: kubernetes-deploy-cluster
+    type: cluster
+    integration: K8S
+    flags:
+      - mule-kubernetes
+
+  - name: mule-backend-img
+    type: image
+    integration: DockerHubIntegration
+    pointer: 
+      sourceName: "docker.io/vishalbiyani/mule-app"
+      isPull: false
+    seed:
+      versionName: "latest"
+    flags:
+      - mule-kubernetes
+      
+  - name: mule-frontend-img
+    type: image
+    integration: DockerHubIntegration
+    pointer: 
+      sourceName: "docker.io/vishalbiyani/mule-ui"
+      isPull: false
+    seed:
+      versionName: "latest"
+    flags:
+      - mule-kubernetes 
