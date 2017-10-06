@@ -3,7 +3,7 @@ node {
     checkout scm
 
     stage ('Build Mule artifact'){
-        sh 'cd app;mvn clean package -DskipTests=true'
+        sh 'cd app;mvn clean package -DskipTests=true;export DOCKER_API_VERSION=1.23 '
     }
 
     docker.withRegistry('', 'docker-hub-login') {
