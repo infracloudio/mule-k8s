@@ -22,4 +22,4 @@ RUN apt-get install -y maven && \
     chmod +x kubectl && \
     mv kubectl /usr/local/bin
 
-USER jenkins
+USER root
