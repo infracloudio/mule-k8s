@@ -5,14 +5,12 @@ metadata:
   labels:
     app: mule-ui
 spec:
-  strategy:
-    rollingUpdate:
-      maxSurge: 3
-      maxUnavailable: 1
+  replicas: 3
   template:
     metadata:
       labels:
         app: mule-ui
+        color: blue
     spec:
       containers:
       - image: vishalbiyani/mule-ui:latest
