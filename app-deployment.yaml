@@ -6,10 +6,6 @@ metadata:
     app: mule-app
 spec:
   replicas: 3
-  strategy:
-    rollingUpdate:
-      maxSurge: 3
-      maxUnavailable: 1
   template:
     metadata:
       labels:
