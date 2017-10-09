@@ -5,14 +5,12 @@ metadata:
   labels:
     app: mule-app
 spec:
-  strategy:
-    rollingUpdate:
-      maxSurge: 3
-      maxUnavailable: 1
+  replicas: 3
   template:
     metadata:
       labels:
         app: mule-app
+        color: blue
     spec:
       containers:
       - image: vishalbiyani/mule-app:latest
