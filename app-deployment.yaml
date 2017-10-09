@@ -2,8 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: mule-app
-  labels:
-    app: mule-app
 spec:
   replicas: 3
   template:
