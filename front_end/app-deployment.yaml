@@ -5,11 +5,7 @@ metadata:
   labels:
     app: mule-ui
 spec:
-  replicas: 
-  strategy:
-    rollingUpdate:
-      maxSurge: 3
-      maxUnavailable: 1
+  replicas: 3
   template:
     metadata:
       labels:
