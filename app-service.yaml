@@ -9,3 +9,4 @@ spec:
       targetPort: 8081
   selector:
     app: mule-app
+    color: blue

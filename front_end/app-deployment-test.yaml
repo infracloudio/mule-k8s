@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mule-ui
+spec:
+  replicas:
+  template:
+    metadata:
+      labels:
+        app: mule-ui
+        color: green
+    spec:
+      containers:
+      - image: vishalbiyani/mule-ui:latest
+        name: mule-ui
+        ports:
+        - containerPort: 8080
+          name: mule-ui
