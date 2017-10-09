@@ -1,11 +1,11 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: mule-app
+  name: mule-ui
   labels:
-    app: mule-app
+    app: mule-ui
 spec:
-  replicas: 3
+  replicas:
   strategy:
     rollingUpdate:
       maxSurge: 3
@@ -13,12 +13,12 @@ spec:
   template:
     metadata:
       labels:
-        app: mule-app
-        color: blue
+        app: mule-ui
+        color: green
     spec:
       containers:
-      - image: vishalbiyani/mule-app:latest
-        name: mule-app
+      - image: vishalbiyani/mule-ui:latest
+        name: mule-ui
         ports:
-        - containerPort: 8081
-          name: mule-app
+        - containerPort: 8080
+          name: mule-ui

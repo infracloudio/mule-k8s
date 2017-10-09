@@ -5,7 +5,7 @@ node {
     stage ('Build Mule artifact'){
         sh 'cd app;mvn clean package -DskipTests=true'
     }
-
+ 
     docker.withRegistry('', 'docker-hub-login') {
         stage 'Backend Build'
         def backendImg = docker.build("vishalbiyani/mule-app:${env.BUILD_TAG}", '.')
@@ -18,13 +18,23 @@ node {
         frontendImage.push('latest');
     }
 
-    stage('Deploy Backend App'){
-        sh 'kubectl apply -f app-deployment.yaml'
-        sh 'kubectl apply -f app-service.yaml'
-    }
+    stage('Deploy Application') {
 
-    stage('Deploy FrontEnd App'){
-        sh 'cd front_end;kubectl apply -f app-deployment.yaml'
-        sh 'cd front_end;kubectl apply -f app-service.yaml'
+            // Deploy Back-end
+
+            sh 'kubectl apply -f app-deployment-test.yaml'
+
+            sh ("sed 's/blue/green/' app-service.yaml")
+
+            sh 'kubectl apply -f app-service.yaml'
+
+            // Deploy Front-end
+
+            sh 'cd front_end;kubectl apply -f app-deployment-test.yaml'
+
+            sh ("cd front_end; sed 's/blue/green/' app-service.yaml")
+
+            sh 'cd front_end;kubectl apply -f app-service.yaml'
+
     }
 }
