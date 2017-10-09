@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: mule-app-green
 spec:
-  replicas:
+  replicas: 3
   template:
     metadata:
       labels:
