@@ -23,16 +23,13 @@ node {
             // Deploy Back-end
 
             sh 'kubectl apply -f app-deployment-test.yaml'
-
-            sh ("sed 's/blue/green/' app-service.yaml | kubectl apply -f -")
+            //sh ("sed 's/blue/green/' app-service.yaml | kubectl apply -f -")
 
             //sh 'kubectl apply -f app-service.yaml'
 
             // Deploy Front-end
-
             sh 'cd front_end;kubectl apply -f app-deployment-test.yaml'
-
-            sh ("cd front_end; sed 's/blue/green/' app-service.yaml | kubectl apply -f -")
+            //sh ("cd front_end; sed 's/blue/green/' app-service.yaml | kubectl apply -f -")
 
            // sh 'cd front_end;kubectl apply -f app-service.yaml'
 
