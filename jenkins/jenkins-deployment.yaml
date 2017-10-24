@@ -16,8 +16,12 @@ spec:
         - containerPort: 8080
         volumeMounts:
         - mountPath: /var/run/docker.sock
-          name: docker-sock  
+          name: docker-sock
+        - mountPath: /var/jenkins_home
+          name: jenkins-home
       volumes:
       - name: docker-sock
         hostPath:
           path: /var/run/docker.sock
+      - name: jenkins-home
+        emptyDir: {}
