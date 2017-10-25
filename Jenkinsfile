@@ -8,12 +8,12 @@ node {
  
     docker.withRegistry('', 'docker-hub-login') {
         stage 'Backend Build'
-        def backendImg = docker.build("vishalbiyani/mule-app:${env.BUILD_TAG}", '.')
+        def backendImg = docker.build("vishalbiyani/mule-app:${env.BUILD_TAG}", '.' , true)
         backendImg.push();
         backendImg.push('latest');
 
         stage 'FrontEndBuild'
-        def frontendImage = docker.build("vishalbiyani/mule-ui:${env.BUILD_TAG}",'front_end')
+        def frontendImage = docker.build("vishalbiyani/mule-ui:${env.BUILD_TAG}",'front_end' , true)
         frontendImage.push();
         frontendImage.push('latest');
     }
