@@ -3,11 +3,11 @@ kind: Deployment
 metadata:
   name: mule-ui-stable
 spec:
-  replicas: 3
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 5
+      maxSurge: 3
       maxUnavailable: 1  
   template:
     metadata:
