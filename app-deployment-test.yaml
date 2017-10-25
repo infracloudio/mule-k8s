@@ -1,14 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: mule-app-green
+  name: mule-app-canary
 spec:
-  replicas: 1
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 1
   template:
     metadata:
       labels:
         app: mule-app
-        color: green
+        track: canary
     spec:
       containers:
       - image: vishalbiyani/mule-app:latest
