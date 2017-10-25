@@ -4,7 +4,7 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
-        Mule Demo Blue-Green
+        Mule Demo Canary Deployment
       </h1>
       <h2 class="subtitle">
         Infracloud Technologies
