@@ -13,7 +13,7 @@ node {
         backendImg.push('latest');
 
         stage 'FrontEndBuild'
-        def frontendImage = docker.build("vishalbiyani/mule-ui:${env.BUILD_TAG}",'--no-cache --rm /front_end')
+        def frontendImage = docker.build("vishalbiyani/mule-ui:${env.BUILD_TAG}",'--no-cache --rm front_end')
         frontendImage.push();
         frontendImage.push('latest');
     }
