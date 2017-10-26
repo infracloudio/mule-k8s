@@ -3,6 +3,8 @@
 var path = require('path'); 
 var express = require('express'); 
 var webpack = require('webpack'); 
+var axios = require('axios'); 
+
 //var webpackDevMiddleware = require('webpackDevMiddleware'); 
 //var webpackHotMiddleware = require('webpackHotMiddleware'); 
 //var express = require('express'); 
@@ -49,7 +51,60 @@ if (isDevelopment) {
 
 else */ {  
     app.use('/dist',express.static(DIST_DIR));
-    app.get("*", (req, res) => res.sendFile(HTML_FILE));
+    app.get("/", (req, res) => res.sendFile(HTML_FILE));
+    app.get("/search", searchfunction);
+    app.get("/image", getimagefunction);
 }
 
 app.listen(8080);
+
+function searchfunction(req , res) {
+    console.log(req.query.q)
+
+    var config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
+          'Content-Type' : 'application/json'
+        }
+    };
+
+    var searchText = req.query.q
+    
+    //axios.get('http://35.187.32.6:8081/search?q='+searchText , config)
+    axios.get('http://mule-app.default.svc.cluster.local:8081/search?q='+searchText , config)
+    .then(response => {
+        res.send(response.data)
+    })
+    .catch(function (error) {
+        console.log(error);
+        res.send('Error occured in fetching data')
+    });
+}
+
+
+function getimagefunction(req , res) {
+    console.log(req.query.q)
+
+    var config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
+          'Content-Type' : 'application/json'
+        }
+    };
+
+    var id = req.query.q
+    //35.187.32.6
+       
+    //axios.get('http://35.187.32.6:8081/images?q='+id , config)
+    axios.get('http://mule-app.default.svc.cluster.local:8081/images?q='+id , config)
+    .then(response => {
+        console.log(response.data);
+        res.send(response.data)
+    })
+    .catch(function (error) {
+        console.log(error);
+        res.send('Error occured in fetching data')
+    });
+}
