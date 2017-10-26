@@ -16,7 +16,7 @@ spec:
         track: canary
     spec:
       containers:
-      - image: vishalbiyani/mule-ui:latest
+      - image: vishalbiyani/mule-ui:replaceTagName
         name: mule-ui
         ports:
         - containerPort: 8080
