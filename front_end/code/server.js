@@ -52,12 +52,13 @@ if (isDevelopment) {
 else */ {  
     app.use('/dist',express.static(DIST_DIR));
     app.get("/", (req, res) => res.sendFile(HTML_FILE));
-    app.get("/search", somefunction);
+    app.get("/search", searchfunction);
+    app.get("/search", getimagefunction);
 }
 
 app.listen(8080);
 
-function somefunction(req , res) {
+function searchfunction(req , res) {
     console.log(req.query.q)
 
     var config = {
@@ -71,6 +72,30 @@ function somefunction(req , res) {
     var searchText = req.query.q
     
     axios.get('http://mule-app.default.svc.cluster.local:8081/search?q='+searchText , config)
+    .then(response => {
+        res.send(response.data)
+    })
+    .catch(function (error) {
+        console.log(error);
+        res.send('Error occured in fetching data')
+    });
+}
+
+
+function getimagefunction(req , res) {
+    console.log(req.query.q)
+
+    var config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
+          'Content-Type' : 'application/json'
+        }
+    };
+
+    var id = req.query.q
+    
+    axios.get('http://mule-app.default.svc.cluster.local:8081/images?q='+id , config)
     .then(response => {
         res.send(response.data)
     })

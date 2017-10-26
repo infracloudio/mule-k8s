@@ -45,6 +45,15 @@ import axios from 'axios';
         }
       };
 
+      axios.get('/image?q='+this.listing.listing_id)
+      .then(response => {
+         if(response.data.count > 0) {
+          this.imageurl = response.data.results[1].url_fullxfull
+          console.log(this.imageurl);
+        }
+      })
+
+      /*
       axios.get('http://localhost:8081/images?q='+this.listing.listing_id , config)
       .then(response => {
         if(response.data.count > 0) {
@@ -52,6 +61,8 @@ import axios from 'axios';
           console.log(this.imageurl);
         }
       })
+
+      */
     },
     methods : {
 
