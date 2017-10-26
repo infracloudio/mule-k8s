@@ -53,7 +53,7 @@ else */ {
     app.use('/dist',express.static(DIST_DIR));
     app.get("/", (req, res) => res.sendFile(HTML_FILE));
     app.get("/search", searchfunction);
-    app.get("/search", getimagefunction);
+    app.get("/image", getimagefunction);
 }
 
 app.listen(8080);
@@ -71,6 +71,7 @@ function searchfunction(req , res) {
 
     var searchText = req.query.q
     
+    //axios.get('http://35.187.32.6:8081/search?q='+searchText , config)
     axios.get('http://mule-app.default.svc.cluster.local:8081/search?q='+searchText , config)
     .then(response => {
         res.send(response.data)
@@ -94,9 +95,12 @@ function getimagefunction(req , res) {
     };
 
     var id = req.query.q
-    
+    //35.187.32.6
+       
+    //axios.get('http://35.187.32.6:8081/images?q='+id , config)
     axios.get('http://mule-app.default.svc.cluster.local:8081/images?q='+id , config)
     .then(response => {
+        console.log(response.data);
         res.send(response.data)
     })
     .catch(function (error) {
