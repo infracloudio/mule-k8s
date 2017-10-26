@@ -48,7 +48,8 @@ if (isDevelopment) {
 
 
 else */ {  
-    app.use(express.static(__dirname));
+      DIST_DIR      = path.join(__dirname, "dist"),
+      app.use(express.static(__dirname));
 
     app.get("*", (req, res) => res.sendFile(HTML_FILE));
 }
