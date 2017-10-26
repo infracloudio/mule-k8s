@@ -22,7 +22,7 @@ node {
 
             // Deploy Back-end
 
-            sh ("sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment.yaml | kubectl apply -f -")    
+            sh ("sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment-test.yaml | kubectl apply -f -")    
 
             //sh 'kubectl apply -f app-deployment-test.yaml'
             //sh ("sed 's/blue/green/' app-service.yaml | kubectl apply -f -")
@@ -31,7 +31,7 @@ node {
 
             // Deploy Front-end
 
-            sh ("cd front_end; sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment.yaml | kubectl apply -f -") 
+            sh ("cd front_end; sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment-test.yaml | kubectl apply -f -") 
                
             //sh 'cd front_end;kubectl apply -f app-deployment-test.yaml'
             //sh ("cd front_end; sed 's/blue/green/' app-service.yaml | kubectl apply -f -")
