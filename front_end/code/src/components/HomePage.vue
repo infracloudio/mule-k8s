@@ -75,6 +75,21 @@ export default {
           'Content-Type' : 'application/json'
         }
       };
+
+      axios.get('/search?q='+this.searchText)
+      .then(response => {
+        this.listings = response.data
+
+        this.count = this.listings.count
+
+        if (this.count > 25) {
+            this.count = 10
+        }
+        if(this.count == 0 ) {
+          this.noResults = "true"
+        }
+      })
+      /*
       axios.get('http://localhost:8081/search?q='+this.searchText , config)
       .then(response => {
         this.listings = response.data
@@ -88,6 +103,7 @@ export default {
           this.noResults = "true"
         }
       })
+      */
     }
   }
 }

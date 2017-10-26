@@ -3,6 +3,8 @@
 var path = require('path'); 
 var express = require('express'); 
 var webpack = require('webpack'); 
+var axios = require('axios'); 
+
 //var webpackDevMiddleware = require('webpackDevMiddleware'); 
 //var webpackHotMiddleware = require('webpackHotMiddleware'); 
 //var express = require('express'); 
@@ -49,7 +51,31 @@ if (isDevelopment) {
 
 else */ {  
     app.use('/dist',express.static(DIST_DIR));
-    app.get("*", (req, res) => res.sendFile(HTML_FILE));
+    app.get("/", (req, res) => res.sendFile(HTML_FILE));
+    app.get("/search", somefunction);
 }
 
 app.listen(8080);
+
+function somefunction(req , res) {
+    console.log(req.query.q)
+
+    var config = {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
+          'Content-Type' : 'application/json'
+        }
+    };
+
+    var searchText = req.query.q
+    
+    axios.get('http://mule-app.default.svc.cluster.local:8081/search?q='+searchText , config)
+    .then(response => {
+        res.send(response.data)
+    })
+    .catch(function (error) {
+        console.log(error);
+        res.send('Error occured in fetching data')
+    });
+}
