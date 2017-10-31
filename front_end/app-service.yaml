@@ -3,8 +3,9 @@ kind: Service
 metadata:
   name: mule-ui
 spec:
+  type: NodePort
   ports:
     - port: 8080
-      targetPort: 8080
+      name: mule-ui
   selector:
     app: mule-ui
