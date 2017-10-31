@@ -4,7 +4,7 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
-        Mule Demo - istio
+        Mule Demo - istio ui change
       </h1>
       <h2 class="subtitle">
         Infracloud Technologies
@@ -23,7 +23,7 @@
         <input class="input" type="text" placeholder="Search for Etsy listings" v-model="searchText">
       </p>
       <p class="control">
-        <a class="button is-primary" v-on:click="search" v-on:keydown.enter="search">
+        <a class="button is-success" v-on:click="search" v-on:keydown.enter="search">
           Search
         </a>
       </p>
