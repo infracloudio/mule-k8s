@@ -1,10 +1,10 @@
 <template lang="html">
 <div>
-  <section class="hero is-medium is-warning is-bold">
+  <section class="hero is-small is-success is-bold">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
-        Mule Demo - Canary
+        Mule Demo - istio
       </h1>
       <h2 class="subtitle">
         Infracloud Technologies

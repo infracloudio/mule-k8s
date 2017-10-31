@@ -1,0 +1,14 @@
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: mule-ui-istio
+spec:
+  destination:
+    name: mule-ui
+  route:
+  - labels:
+      track: stable
+    weight: 50
+  - labels:
+      track: canary
+    weight: 50
