@@ -5,10 +5,12 @@ metadata:
 spec:
   destination:
     name: mule-ui
+  match:
+    request:
+      headers:
+        user-agent:
+          regex: "^(.*?;)?(\w*Firefox*)(;.*)?$"  
   route:
   - labels:
-      track: stable
-    weight: 50
-  - labels:
       track: canary
-    weight: 50
+    weight: 100
