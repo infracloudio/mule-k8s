@@ -30,5 +30,8 @@ node {
         sh ("cd front_end; sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment.yaml | kubectl apply -f -")    
         //sh 'cd front_end;kubectl apply -f app-deployment.yaml'
         sh 'cd front_end;kubectl apply -f app-service.yaml'
+
+        // Deploy istio rule yaml
+        sh 'istioctl create -f istio-rule.yaml'
     }
 }
