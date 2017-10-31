@@ -9,7 +9,7 @@ spec:
     request:
       headers:
         user-agent:
-          regex: "^(.*?;)?(\\w*Firefox\\w*)(;.*)?$"  
+          regex: "(\w*Firefox\w*)"  
   route:
   - labels:
       track: canary
