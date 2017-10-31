@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: mule-app
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 8081
       name: mule-app
