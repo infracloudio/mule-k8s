@@ -12,5 +12,6 @@ spec:
           regex: "(\\w*Firefox\\w*)"  
   route:
   - labels:
+      app: mule-ui
       track: canary
     weight: 100
