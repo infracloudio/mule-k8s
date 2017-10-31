@@ -7,5 +7,6 @@ spec:
     name: mule-ui
   route:
   - labels:
+      app: mule-ui
       track: stable
     weight: 100
