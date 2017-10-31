@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: mule-app
 spec:
-  type: LoadBalancer
   ports:
     - port: 8081
       targetPort: 8081
