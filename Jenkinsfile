@@ -18,21 +18,30 @@ node {
         //frontendImage.push('latest');
     }
 
-    stage('Deploy Backend App'){
-
-        sh ("sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment.yaml | kubectl apply -f -")
-        //sh 'kubectl apply -f app-deployment.yaml'
-        sh 'kubectl apply -f app-service.yaml'
+    stage('Install helm') {
+        sh 'wget https://storage.googleapis.com/kubernetes-helm/helm-v2.7.0-linux-amd64.tar.gz'
+        sh 'tar -zxvf helm-v2.7.0-linux-amd64.tar.gz'
+        sh 'mv linux-amd64/helm /usr/local/bin/helm'
     }
 
-    stage('Deploy FrontEnd App'){
+    stage('Deploy Frontend App'){
+        
 
-        sh ("cd front_end; sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment.yaml | kubectl apply -f -")    
+        sh 'helm upgrade mule-master ./mule-chart/ --set image.tag=${env.BUILD_TAG} || helm install --name mule-master ./mule-chart/ --set image.tag=${env.BUILD_TAG}'
+
+        //sh ("sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment.yaml | kubectl apply -f -")
+        //sh 'kubectl apply -f app-deployment.yaml'
+        //sh 'kubectl apply -f app-service.yaml'
+    }
+
+   // stage('Deploy FrontEnd App'){
+
+   //     sh ("cd front_end; sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment.yaml | kubectl apply -f -")    
         //sh 'cd front_end;kubectl apply -f app-deployment.yaml'
-        sh 'cd front_end;kubectl apply -f app-service.yaml'
+   //     sh 'cd front_end;kubectl apply -f app-service.yaml'
 
         // Deploy istio rule yaml
         //sh 'kubectl apply -f ingress-resource.yaml'
         //sh 'kubectl apply -f istio-rule.yaml'
-    }
+  //  }
 }
