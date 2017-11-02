@@ -1,0 +1,11 @@
+# Default values for test-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+spec:
+  replicaCount_frontend: 1
+  replicaCount_backend: 1  
+image:
+  repository_frontend: vishalbiyani/mule-ui
+  repository_backend: vishalbiyani/mule-app 
+  tag: replaceTagName
+  tag: replaceTagName 

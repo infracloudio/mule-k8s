@@ -1,0 +1,51 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mule-ui-stable
+spec:
+  replicas: {{ .Values.spec.replicaCount_frontend }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1  
+  template:
+    metadata:
+      labels:
+        app: mule-ui
+        track: stable
+    spec:
+      containers:
+      - image: {{ .Values.image.repository_frontend }}:{{ .Values.image.tag}}
+        name: mule-ui
+        ports:
+        - containerPort: 8080
+          name: mule-ui
+
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mule-app-stable
+spec:
+  replicas: {{ .Values.spec.replicaCount_backend }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1  
+  template:
+    metadata:
+      labels:
+        app: mule-app
+        track: stable
+    spec:
+      containers:
+      - image: {{ .Values.image.repository_backend }}:{{ .Values.image.tag }}
+        name: mule-app
+        ports:
+        - containerPort: 8081
+          name: mule-app
