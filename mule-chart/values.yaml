@@ -7,5 +7,5 @@ spec:
 image:
   repository_frontend: vishalbiyani/mule-ui
   repository_backend: vishalbiyani/mule-app 
-  tag_frontend: replaceTagName
-  tag_backend: replaceTagName 
+  tag: replaceTagName
+  tag: replaceTagName 
