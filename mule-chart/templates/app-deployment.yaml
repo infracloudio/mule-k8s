@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: mule-ui-stable
 spec:
-  replicas: {{ .Values.spec.replicaCount-frontend }}
+  replicas: {{ .Values.spec.replicaCount_frontend }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,7 +17,7 @@ spec:
         track: stable
     spec:
       containers:
-      - image: {{ .Values.image.repository-frontend }}:{{ .Values.image.tag-frontend }}
+      - image: {{ .Values.image.repository_frontend }}:{{ .Values.image.tag_frontend }}
         name: mule-ui
         ports:
         - containerPort: 8080
@@ -31,7 +31,7 @@ kind: Deployment
 metadata:
   name: mule-app-stable
 spec:
-  replicas: {{ .Values.spec.replicaCount-backend }}
+  replicas: {{ .Values.spec.replicaCount_backend }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -44,7 +44,7 @@ spec:
         track: stable
     spec:
       containers:
-      - image: {{ .Values.image.repository-backend }}:{{ .Values.image.tag-backend }}
+      - image: {{ .Values.image.repository_backend }}:{{ .Values.image.tag_backend }}
         name: mule-app
         ports:
         - containerPort: 8081
