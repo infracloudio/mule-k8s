@@ -9,3 +9,19 @@ spec:
       name: mule-ui
   selector:
     app: mule-ui
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mule-app
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8081
+      name: mule-app
+  selector:
+    app: mule-app

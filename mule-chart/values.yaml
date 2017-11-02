@@ -2,7 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 spec:
-  replicaCount: 2
+  replicaCount-frontend: 1
+  replicaCount-backend: 1  
 image:
-  repository: vishalbiyani/mule-ui
-  tag: jenkins-mule-master-23
+  repository-frontend: vishalbiyani/mule-ui
+  repository-backend: vishalbiyani/mule-app 
+  tag-frontend: replaceTagName
+  tag-backend: replaceTagName 
