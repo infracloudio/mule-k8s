@@ -27,7 +27,7 @@ node {
     stage('Deploy Frontend App'){
         
 
-        sh "helm upgrade mule-master ./mule-chart/ --set image.tag=${env.BUILD_TAG} || helm install --name mule-master ./mule-chart/ --set image.tag=${env.BUILD_TAG}""
+        sh "helm upgrade mule-master ./mule-chart/ --set image.tag=${env.BUILD_TAG} || helm install --name mule-master ./mule-chart/ --set image.tag=${env.BUILD_TAG}"
 
         //sh ("sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment.yaml | kubectl apply -f -")
         //sh 'kubectl apply -f app-deployment.yaml'
