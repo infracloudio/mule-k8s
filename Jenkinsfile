@@ -49,7 +49,7 @@ node {
            // sh 'cd front_end;kubectl apply -f app-service.yaml'
 
         // Deploy istio rule yaml
-        sh 'kubectl apply -f istio-rule.yaml'
+       // sh 'kubectl apply -f istio-rule.yaml'
 
     }
 }
