@@ -18,11 +18,21 @@ node {
         //frontendImage.push('latest');
     }
 
+
+    stage('Install helm') {
+        sh 'wget https://storage.googleapis.com/kubernetes-helm/helm-v2.7.0-linux-amd64.tar.gz'
+        sh 'tar -zxvf helm-v2.7.0-linux-amd64.tar.gz'
+        sh 'mv linux-amd64/helm /usr/local/bin/helm'
+    }
+
     stage('Deploy Application') {
+
+
+            sh "helm upgrade mule-canary ./mule-chart/ --set image.tag=${env.BUILD_TAG} || helm install --name mule-canary ./mule-chart/ --set image.tag=${env.BUILD_TAG}"
 
             // Deploy Back-end
 
-            sh ("sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment-test.yaml | kubectl apply -f -")    
+            //sh ("sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment-test.yaml | kubectl apply -f -")    
 
             //sh 'kubectl apply -f app-deployment-test.yaml'
             //sh ("sed 's/blue/green/' app-service.yaml | kubectl apply -f -")
@@ -31,7 +41,7 @@ node {
 
             // Deploy Front-end
 
-            sh ("cd front_end; sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment-test.yaml | kubectl apply -f -") 
+            //sh ("cd front_end; sed 's/replaceTagName/${env.BUILD_TAG}/' app-deployment-test.yaml | kubectl apply -f -") 
                
             //sh 'cd front_end;kubectl apply -f app-deployment-test.yaml'
             //sh ("cd front_end; sed 's/blue/green/' app-service.yaml | kubectl apply -f -")
