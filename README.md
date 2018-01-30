@@ -23,7 +23,7 @@ docker build -t mule-app .
 For front end, go to front_end directory and build:
 
 ```
-docker build -t mule-ui
+docker build -t mule-ui .
 ```
 ### Run
 
